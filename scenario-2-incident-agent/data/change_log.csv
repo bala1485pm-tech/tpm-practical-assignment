@@ -1,0 +1,26 @@
+change_id,timestamp_utc,service,change_type,summary,owning_team,rollout_method,rollback_available
+CHG-7671,2026-09-13 22:10,reporting-service,deployment,v2.9.0 adds monthly export format,Data Reporting,blue-green,yes (redeploy ~10 min)
+CHG-7688,2026-09-14 10:00,auth-service,deployment,v3.4.1 switches to structured log format; no logic change,Identity,canary,yes (redeploy ~10 min)
+CHG-7690,2026-09-14 16:30,notification-service,deployment,v1.22.0 email template update,Customer Comms,rolling,yes (redeploy ~10 min)
+CHG-7693,2026-09-14 20:00,feature-store,infrastructure,Node pool autoscaling maximum raised from 6 to 8,ML Platform,infrastructure as code,yes (revert ~15 min)
+CHG-7695,2026-09-15 02:00,ledger-postgres,database,Minor version patch applied to read replica only; primary untouched,Database Platform,DBA runbook,no
+CHG-7696,2026-09-15 03:00,identity-db,database,Scheduled index maintenance (REINDEX CONCURRENTLY) on sessions table; completed 03:25,Database Platform,DBA runbook,not applicable
+CHG-7698,2026-09-15 08:00,settlement-batch,deployment,v1.8.0 logging improvements; no change to queries or connection handling,Settlements,rolling,yes (redeploy ~10 min)
+CHG-7700,2026-09-15 09:30,payments-api,deployment,v4.18.0 currency rounding fix for JPY refunds,Payments,canary,yes (redeploy ~10 min)
+CHG-7704,2026-09-15 11:20,web-checkout,deployment,v7.3.0 copy changes on checkout page,Web,canary,yes (redeploy ~5 min)
+CHG-7705,2026-09-15 14:45,fraud-scoring,deployment,v5.1.0 model refresh; canary at 10 percent for 24 hours then full,Fraud,canary,yes (redeploy ~10 min)
+CHG-7707,2026-09-15 18:00,mobile-gateway,config,Per-client rate limit raised from 200 to 250 requests per second; staged by client group,Mobile Platform,staged,yes (revert ~5 min)
+CHG-7708,2026-09-16 09:15,payments-api,feature flag,refund-v2-response enabled for internal test users only,Payments,flag,yes (flag off instant)
+CHG-7710,2026-09-16 13:00,ledger-service,deployment,v2.14.0 adds idempotency key validation on postings; canary healthy for 2 hours,Ledger,canary,yes (redeploy ~10 min)
+CHG-7712,2026-09-16 17:20,settlement-batch,config,Intraday settlement run rescheduled from 16:00 to 13:30 UTC; first run at new time is 2026-09-17,Settlements,scheduler config push (no canary),yes (revert ~5 min)
+CHG-7713,2026-09-16 21:00,reporting-service,config,Nightly export moved from 01:00 to 02:00 UTC,Data Reporting,scheduler config push,yes (revert ~5 min)
+CHG-7714,2026-09-17 06:30,feature-store,deployment,v0.9.3 cache TTL raised from 30 to 60 seconds,ML Platform,canary,yes (redeploy ~10 min)
+CHG-7715,2026-09-17 08:15,identity-db,config,Backup retention extended from 14 to 30 days,Database Platform,config push,yes (revert ~5 min)
+CHG-7716,2026-09-17 09:00,auth-service,certificate,TLS certificate auto-renewed; validated by health check,Identity,automated,not applicable
+CHG-7717,2026-09-17 10:30,notification-service,config,SMS provider failover weighting adjusted,Customer Comms,config push,yes (revert ~5 min)
+CHG-7718,2026-09-17 11:40,mobile-gateway,deployment,v3.8.1 push token refresh fix,Mobile Platform,canary,yes (redeploy ~10 min)
+CHG-7719,2026-09-17 12:04,ledger-db-pool,config,PgBouncer default_pool_size reduced from 120 to 40 as part of database right-sizing initiative,Database Platform,config push (no canary),yes (config revert ~5 min)
+CHG-7722,2026-09-17 13:15,fraud-scoring,feature flag,enhanced-velocity-check ramped from 25 to 50 percent of traffic,Fraud,flag ramp,yes (flag off instant)
+CHG-7724,2026-09-17 13:30,reporting-service,deployment,v2.9.1 fixes column order in monthly export,Data Reporting,blue-green,yes (redeploy ~10 min)
+CHG-7726,2026-09-17 13:48,payments-api,deployment,v4.18.2 adds settlement_reference field to refund response; no database or connection handling changes; canary healthy for 10 minutes,Payments,canary,yes (redeploy ~10 min)
+CHG-7729,2026-09-17 14:20,web-checkout,feature flag,Maintenance banner enabled on checkout page,Web,flag,yes (flag off instant)

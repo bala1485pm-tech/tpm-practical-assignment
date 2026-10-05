@@ -1,0 +1,16 @@
+service,type,tier,owning_team,depends_on,change_feed,notes
+web-checkout,frontend,1,Web,payments-api;auth-service,yes,Customer checkout web app
+mobile-gateway,gateway,1,Mobile Platform,payments-api;auth-service,yes,API gateway for mobile apps
+payments-api,service,1,Payments,ledger-service;fraud-scoring;auth-service;notification-service,yes,Synchronous calls to ledger-service fraud-scoring and auth-service; notification-service is asynchronous
+ledger-service,service,1,Ledger,ledger-db-pool,yes,Posts and reads ledger entries; all database access goes through ledger-db-pool
+ledger-db-pool,connection pooler,1,Database Platform,ledger-postgres,yes,PgBouncer pool shared by ledger-service and settlement-batch
+ledger-postgres,database,1,Database Platform,,yes,PostgreSQL primary with one read replica
+settlement-batch,batch job,2,Settlements,ledger-db-pool,yes,Intraday and end-of-day settlement runs; shares ledger-db-pool with ledger-service
+fraud-scoring,service,1,Fraud,feature-store,yes,Real-time fraud score for each payment
+feature-store,data service,2,ML Platform,,yes,Feature lookups for fraud-scoring
+auth-service,service,1,Identity,identity-db;external-idp,yes,Token validation and login; password logins use identity-db; SSO logins use external-idp
+identity-db,database,1,Database Platform,,yes,PostgreSQL for users and sessions
+external-idp,external vendor,1,Identity (vendor managed),,no,Third-party identity provider; vendor changes are not visible in the change log
+notification-service,service,3,Customer Comms,,yes,Email and SMS notifications; asynchronous
+reporting-service,service,3,Data Reporting,ledger-postgres,yes,Reads from the ledger-postgres read replica only; does not use ledger-db-pool
+network-edge,infrastructure,1,Network Engineering,,no,Firewall DNS and egress rules; no change feed in this data set
